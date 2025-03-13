@@ -1,5 +1,5 @@
 import React from 'react';
-import Loader from './loader';
+import Loader from './Loader.jsx';
 
 const LoadingWrapper = ({ isLoading, children }) => {
   return (
