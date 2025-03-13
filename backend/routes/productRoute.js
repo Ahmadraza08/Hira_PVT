@@ -10,4 +10,6 @@ productRouter.post('/remove',adminAuth, removeProduct);
 productRouter.post('/single', singleProduct);
 productRouter.get('/list', listProduct);
 
+// subCategory logic removed
+
 export default productRouter;

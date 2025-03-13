@@ -12,7 +12,7 @@ const Collection = () => {
   const { products, search, showSearch } = useContext(ShopContext);
   const [showFilters, setShowFilters] = useState(false);
   const [filterProducts, setFilterProducts] = useState([]);
-  const [category, setCategory] = useState([]);
+  const [category, setCategory] = useState('');
   const [sortType, setSortType] = useState('relavent');
 
   const [loading, setLoading] = useState(true);
@@ -27,11 +27,7 @@ const Collection = () => {
   }, []);
 
   const toggleCategory = (e) => {
-    if (category.includes(e.target.value)) {
-      setCategory((prev) => prev.filter((item) => item !== e.target.value));
-    } else {
-      setCategory((prev) => [...prev, e.target.value]);
-    }
+    setCategory(e.target.value);
   };
 
   const applyFilter = () => {
@@ -41,8 +37,8 @@ const Collection = () => {
       productCopy = productCopy.filter((item) => item.name.toLowerCase().includes(search.toLowerCase()));
     }
 
-    if (category.length > 0) {
-      productCopy = productCopy.filter(item => category.includes(item.category));
+    if (category) {
+      productCopy = productCopy.filter(item => item.category === category);
     }
 
     setFilterProducts(productCopy);
@@ -95,13 +91,13 @@ const Collection = () => {
           <p className="mb-3 text-sm font-medium">CATEGORIES</p>
           <div className="flex flex-col gap-2 text-sm font-light text-gray-700">
             <label className="flex gap-2">
-              <input className="w-3" type="checkbox" value="TV & HOME APPLIANCES" onChange={toggleCategory} /> TV & HOME APPLIANCES
+              <input className="w-3" type="radio" value="TV & HOME APPLIANCES" onChange={toggleCategory} name="category" /> TV & HOME APPLIANCES
             </label>
             <label className="flex gap-2">
-              <input className="w-3" type="checkbox" value="AC & FRIDGE" onChange={toggleCategory} /> AC & FRIDGE
+              <input className="w-3" type="radio" value="AC & FRIDGE" onChange={toggleCategory} name="category" /> AC & FRIDGE
             </label>
             <label className="flex gap-2">
-              <input className="w-3" type="checkbox" value="BIKES" onChange={toggleCategory} /> BIKES
+              <input className="w-3" type="radio" value="BIKES" onChange={toggleCategory} name="category" /> BIKES
             </label>
           </div>
         </div>
