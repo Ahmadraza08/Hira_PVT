@@ -14,7 +14,7 @@ import Footer from './components/Footer'
 import Searchbar from './components/Searchbar'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import Loader from './components/loader'
+import Loader from './components/Loader.jsx'
 
 const App = () => {
 
