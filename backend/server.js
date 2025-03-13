@@ -17,10 +17,7 @@ connectCloudinary();
 
 // Middlewares
 app.use(express.json());
-app.use(cors({
-  origin: ["https://hira-electronics.vercel.app/", "http://localhost:4000"],
-  credentials: true,
-}));
+app.use(cors());
 
 
 // API Endpoints
