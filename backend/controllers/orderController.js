@@ -3,22 +3,22 @@ import userModel from "../models/userModel.js";
 
 // global variables
 const currency = 'pkr';
-const deliveryCharges = 1000;
+const deliveryCharges = 2000;
 
-// Placing orders using COD method
+// Placing orders using COD or manual payment method
 const placeOrder = async (req, res) => {
 
     try {
 
-        const { userId, items, amount, address } = req.body;
+        const { userId, items, amount, address, paymentMethod } = req.body;
 
         const orderData = {
             userId,
             items,
             address,
             amount,
-            paymentMethod: "COD",
-            payment: false,
+            paymentMethod: paymentMethod || "COD", // Use the provided payment method or default to COD
+            payment: paymentMethod === "manual", // Set payment to true for manual payments as they pay upfront
             status: 'order placed',
             date: Date.now()
         }
@@ -28,17 +28,12 @@ const placeOrder = async (req, res) => {
 
         await userModel.findByIdAndUpdate(userId, { cartData: {} })
 
-        res.json({ success: true, message: 'Order Placed' })
+        res.json({ success: true, message: 'Order Placed', orderId: newOrder._id })
 
     } catch (error) {
         console.log(error)
         res.json({ success: false, message: error.message })
     }
-
-}
-
-// Placing orders using razorpay method
-const placeOrderRazorpay = async (req, res) => {
 
 }
 
@@ -84,4 +79,30 @@ const updateStatus = async (req, res) => {
     }
 }
 
-export { placeOrder, placeOrderRazorpay, allOrders, userOrders, updateStatus }
+// update payment status from Admin panel
+const updatePaymentStatus = async (req, res) => {
+    try {
+        const { orderId, payment } = req.body;
+
+        await orderModel.findByIdAndUpdate(orderId, { payment })
+        res.json({ success: true, message: 'Payment status updated' })
+    } catch (error) {
+        console.log(error)
+        res.json({ success: false, message: error.message })
+    }
+}
+
+// update estimated delivery date from Admin panel
+const updateDeliveryDate = async (req, res) => {
+    try {
+        const { orderId, estimatedDeliveryDate } = req.body;
+
+        await orderModel.findByIdAndUpdate(orderId, { estimatedDeliveryDate })
+        res.json({ success: true, message: 'Estimated delivery date updated' })
+    } catch (error) {
+        console.log(error)
+        res.json({ success: false, message: error.message })
+    }
+}
+
+export { placeOrder, allOrders, userOrders, updateStatus, updatePaymentStatus, updateDeliveryDate }

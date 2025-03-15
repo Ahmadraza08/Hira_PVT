@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react'
 import { toast } from 'react-toastify'
 import axios from 'axios'
 import { ShopContext } from '../context/ShopContext'
+import ManualPayment from '../components/ManualPayment'
 
 const PlaceOrder = () => {
   const { navigate, backendUrl, token, cartItems, setCartItems, getCartAmount, delivery_fee, products } = useContext(ShopContext);
@@ -16,12 +17,19 @@ const PlaceOrder = () => {
     country: '',
     phone: ''
   });
+  const [paymentMethod, setPaymentMethod] = useState('cod');
+  const [orderId, setOrderId] = useState('');
+  const [showManualPayment, setShowManualPayment] = useState(false);
 
   const onChangeHandler = (event) => {
     const name = event.target.name;
     const value = event.target.value;
 
     setFormData(data => ({ ...data, [name]: value }));
+  };
+
+  const handlePaymentMethodChange = (event) => {
+    setPaymentMethod(event.target.value);
   };
 
   const onSubmitHandler = async (event) => {
@@ -43,14 +51,22 @@ const PlaceOrder = () => {
         address: formData,
         items: orderItems,
         amount: getCartAmount() + delivery_fee,
+        paymentMethod: paymentMethod
       };
 
       const responseCod = await axios.post(backendUrl + '/api/order/place', orderData, { headers: { token } });
       if (responseCod.data.success) {
         toast.success(responseCod.data.message);
-        // Clear cart after successful order
-        setCartItems({});
-        navigate('/orders');
+        
+        if (paymentMethod === 'manual') {
+          // For manual payment, get order ID and show the receipt upload
+          setOrderId(responseCod.data.orderId || 'ORD-' + Date.now());
+          setShowManualPayment(true);
+        } else {
+          // For COD, clear cart and navigate to orders
+          setCartItems({});
+          navigate('/orders');
+        }
       } else {
         toast.error(responseCod.data.message || 'Failed to place order');
       }
@@ -59,6 +75,78 @@ const PlaceOrder = () => {
       toast.error(error.response?.data?.message || 'Failed to place order. Please try again.');
     }
   };
+
+  // Payment Details Component that's shown when manual payment is selected
+  const PaymentDetails = () => {
+    return (
+      <div className="rounded-lg bg-gradient-to-r from-gray-50 to-gray-100 shadow-sm p-5 my-5 border border-gray-200">
+        <div className="border-b border-gray-200 pb-4 mb-4">
+          <h3 className="text-lg font-semibold text-gray-800 mb-1">Payment Instructions</h3>
+          <p className="text-sm text-gray-600">Please transfer the exact amount and upload payment proof after placing your order</p>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Bank Transfer Section */}
+          <div className="bg-white rounded-lg p-4 shadow-sm border-l-4 border-black hover:shadow-md transition duration-200">
+            <div className="flex items-center mb-3">
+              <div className="w-10 h-10 rounded-full bg-black flex items-center justify-center mr-3">
+                <span className="text-white font-bold text-sm">MB</span>
+              </div>
+              <h4 className="text-lg font-semibold">Meezan Bank</h4>
+            </div>
+            <div className="space-y-2 text-sm">
+              <div className="flex justify-between">
+                <span className="text-gray-500">Account Title:</span>
+                <span className="font-medium">Hira Electronics</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-500">Account Number:</span>
+                <span className="font-medium">12345678901234</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-500">IBAN:</span>
+                <span className="font-medium">PK00MEZN0012345678901234</span>
+              </div>
+            </div>
+          </div>
+          
+
+        </div>
+        
+        <div className="mt-5 p-4 bg-blue-50 rounded-lg border border-blue-100">
+          <h4 className="text-sm font-semibold text-blue-700 mb-2">Important Notes:</h4>
+          <ul className="list-disc list-inside text-xs text-blue-600 space-y-1">
+            <li>After transferring the payment, please place your order and upload a screenshot as proof</li>
+            <li>Your order will be processed once the payment is verified (usually within 24 hours)</li>
+            <li>Please ensure the transferred amount matches your order total exactly</li>
+          </ul>
+        </div>
+      </div>
+    );
+  };
+
+  // If showing manual payment form after order placement
+  if (showManualPayment) {
+    return (
+      <div className="container mx-auto py-8">
+        <ManualPayment 
+          orderId={orderId} 
+          amount={getCartAmount() + delivery_fee} 
+        />
+        <div className="text-center mt-6">
+          <button 
+            onClick={() => {
+              setCartItems({});
+              navigate('/orders');
+            }}
+            className="bg-gray-800 text-white py-2 px-6 rounded"
+          >
+            View Your Orders
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <form onSubmit={onSubmitHandler} className='flex flex-col sm:flex-row justify-between gap-4 pt-5 sm:pt-14 min-h-[80vh] border-t'>
@@ -179,13 +267,27 @@ const PlaceOrder = () => {
                   name="payment"
                   id="cod"
                   value="cod"
-                  checked
-                  readOnly
+                  checked={paymentMethod === 'cod'}
+                  onChange={handlePaymentMethodChange}
                 />
                 <label htmlFor="cod">Cash on Delivery</label>
               </div>
+              <div className='flex gap-2 items-center'>
+                <input
+                  type="radio"
+                  name="payment"
+                  id="manual"
+                  value="manual"
+                  checked={paymentMethod === 'manual'}
+                  onChange={handlePaymentMethodChange}
+                />
+                <label htmlFor="manual">Manual Payment</label>
+              </div>
             </div>
           </div>
+
+          {/* Show payment details immediately when manual payment is selected */}
+          {paymentMethod === 'manual' && <PaymentDetails />}
 
           <button type="submit" className='bg-black text-white py-2 px-4 w-full'>PLACE ORDER</button>
         </div>

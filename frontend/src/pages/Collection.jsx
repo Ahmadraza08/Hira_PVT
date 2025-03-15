@@ -91,19 +91,31 @@ const Collection = () => {
           <p className="mb-3 text-sm font-medium">CATEGORIES</p>
           <div className="flex flex-col gap-2 text-sm font-light text-gray-700">
             <label className="flex gap-2">
-              <input className="w-3" type="radio" value="TV & HOME APPLIANCES" onChange={toggleCategory} name="category" /> TV & HOME APPLIANCES
+              <input className="w-3" type="radio" value="TV" onChange={toggleCategory} name="category" /> TV
             </label>
             <label className="flex gap-2">
-              <input className="w-3" type="radio" value="AC & FRIDGE" onChange={toggleCategory} name="category" /> AC & FRIDGE
+              <input className="w-3" type="radio" value="FRIDGE" onChange={toggleCategory} name="category" /> FRIDGE
+            </label>
+            <label className="flex gap-2">
+              <input className="w-3" type="radio" value="WASHING MACHINE" onChange={toggleCategory} name="category" /> WASHING MACHINE
+            </label>
+            <label className="flex gap-2">
+              <input className="w-3" type="radio" value="HOME APPLIANCES" onChange={toggleCategory} name="category" /> HOME APPLIANCES
+            </label>
+            <label className="flex gap-2">
+              <input className="w-3" type="radio" value="AC" onChange={toggleCategory} name="category" /> AC
             </label>
             <label className="flex gap-2">
               <input className="w-3" type="radio" value="BIKES" onChange={toggleCategory} name="category" /> BIKES
+            </label>
+            <label className="flex gap-2">
+              <input className="w-3" type="radio" value="ROOM COOLER" onChange={toggleCategory} name="category" /> ROOM COOLER
             </label>
           </div>
         </div>
       </div>
 
-      {/* Right Side */}
+      {/* Right Side */} 
       <div className="flex-1">
         <div className="flex justify-between text-base sm:text-2xl mb-4">
           <Title text1={'ALL'} text2={'COLLECTION'} />

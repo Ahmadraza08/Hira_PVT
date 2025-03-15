@@ -13,7 +13,7 @@ const Add = ({ token }) => {
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [price, setPrice] = useState("");
-    const [category, setCategory] = useState("Men");
+    const [category, setCategory] = useState("");
     const [bestseller, setBestseller] = useState(false);
     const [loading, setLoading] = useState(false);
 
@@ -80,19 +80,90 @@ const Add = ({ token }) => {
                 <textarea onChange={(e) => setDescription(e.target.value)} value={description} className='w-full max-w-[500px] px-3 py-2' type="text" placeholder='Write content here' required />
             </div>
 
-            <div>
-                <p className='mb-2'>Product Category</p>
-                <select onChange={(e) => setCategory(e.target.value)} value={category} className='w-full px-3 py-2'>
-                    <option value="TV & HOME APPLIANCES">TV & HOME APPLIANCES</option>
-                    <option value="AC & FRIDGE">AC & FRIDGE</option>
-                    <option value="BIKE">BIKE</option>
-                </select>
+            <div className="flex flex-col gap-2 text-sm font-light text-gray-700">
+                <p className='mb-2 text-base font-normal'>Product Category</p>
+                <label className="flex gap-2">
+                    <input
+                        className="w-3"
+                        type="radio"
+                        value="TV"
+                        onChange={(e) => setCategory(e.target.value)}
+                        checked={category === "TV"}
+                        name="category"
+                    />
+                    TV
+                </label>
+                <label className="flex gap-2">
+                    <input
+                        className="w-3"
+                        type="radio"
+                        value="FRIDGE"
+                        onChange={(e) => setCategory(e.target.value)}
+                        checked={category === "FRIDGE"}
+                        name="category"
+                    />
+                    FRIDGE
+                </label>
+                <label className="flex gap-2">
+                    <input
+                        className="w-3"
+                        type="radio"
+                        value="WASHING MACHINE"
+                        onChange={(e) => setCategory(e.target.value)}
+                        checked={category === "WASHING MACHINE"}
+                        name="category"
+                    />
+                    WASHING MACHINE
+                </label>
+                <label className="flex gap-2">
+                    <input
+                        className="w-3"
+                        type="radio"
+                        value="HOME APPLIANCES"
+                        onChange={(e) => setCategory(e.target.value)}
+                        checked={category === "HOME APPLIANCES"}
+                        name="category"
+                    />
+                    HOME APPLIANCES
+                </label>
+                <label className="flex gap-2">
+                    <input
+                        className="w-3"
+                        type="radio"
+                        value="AC"
+                        onChange={(e) => setCategory(e.target.value)}
+                        checked={category === "AC"}
+                        name="category"
+                    />
+                    AC
+                </label>
+                <label className="flex gap-2">
+                    <input
+                        className="w-3"
+                        type="radio"
+                        value="BIKES"
+                        onChange={(e) => setCategory(e.target.value)}
+                        checked={category === "BIKES"}
+                        name="category"
+                    />
+                    BIKES
+                </label>
+                <label className="flex gap-2">
+                    <input
+                        className="w-3"
+                        type="radio"
+                        value="ROOM COOLER"
+                        onChange={(e) => setCategory(e.target.value)}
+                        checked={category === "ROOM COOLER"}
+                        name="category"
+                    />
+                    ROOM COOLER
+                </label>
+            </div>
 
-                
-                <div>
-                    <p className='mb-2'>Product Price</p>
-                    <input onChange={(e) => setPrice(e.target.value)} value={price} className='w-full px-3 py-2 sm:w-[120px]' type="number" placeholder='1000' required />
-                </div>
+            <div>
+                <p className='mb-2'>Product Price</p>
+                <input onChange={(e) => setPrice(e.target.value)} value={price} className='w-full px-3 py-2 sm:w-[120px]' type="number" placeholder='1000' required />
             </div>
 
             <div className='flex gap-2 mt-2'>
@@ -100,8 +171,8 @@ const Add = ({ token }) => {
                 <label className='cursor-pointer' htmlFor="bestseller">Add to bestseller</label>
             </div>
 
-            <button 
-                type='submit' 
+            <button
+                type='submit'
                 className='w-28 py-3 mt-4 bg-black text-white disabled:opacity-50 disabled:cursor-not-allowed'
                 disabled={loading}
             >
