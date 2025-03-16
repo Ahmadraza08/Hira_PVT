@@ -3,7 +3,7 @@ import React from 'react';
 const ManualPayment = ({ orderId, amount }) => {
   return (
     <div className="bg-white rounded-lg shadow-md p-6 max-w-md mx-auto my-4">
-      <h2 className="text-xl font-semibold mb-4">Manual Payment Details</h2>
+      <h2 className="text-xl font-semibold mb-4">Online Payment Details</h2>
       
       {orderId && (
         <div className="mb-4">
@@ -27,11 +27,11 @@ const ManualPayment = ({ orderId, amount }) => {
           <div className="space-y-3 text-sm">
             <div className="flex justify-between border-b pb-2">
               <span className="text-gray-500">Account Title:</span>
-              <span className="font-medium">Hira Electronics</span>
+              <span className="font-medium">SUNNY ELECTRONICS</span>
             </div>
             <div className="flex justify-between border-b pb-2">
               <span className="text-gray-500">Account Number:</span>
-              <span className="font-medium">12345678901234</span>
+              <span className="font-medium">0189-0105709390</span>
             </div>
             <div className="flex justify-between pb-2">
               <span className="text-gray-500">IBAN:</span>
