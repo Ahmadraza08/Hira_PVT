@@ -15,7 +15,8 @@ const ManualPayment = ({ orderId, amount }) => {
           </p>
         </div>
       )}
-      
+    
+      {/* Bank Details */}
       <div className="rounded-lg bg-gradient-to-r from-gray-50 to-gray-100 shadow-sm p-5 my-4 border border-gray-200">
         <div className="bg-white rounded-lg p-5 shadow-sm border-l-4 border-black hover:shadow-md transition duration-200">
           <div className="flex items-center mb-4">
@@ -32,19 +33,12 @@ const ManualPayment = ({ orderId, amount }) => {
             <div className="flex justify-between border-b pb-2">
               <span className="text-gray-500">Account Number:</span>
               <span className="font-medium">0189-0105709390</span>
-<<<<<<< HEAD
-            </div>
-            <div className="flex justify-between pb-2">
-              <span className="text-gray-500">IBAN:</span>
-              <span className="font-medium">PK00MEZN0012345678901234</span>
-=======
->>>>>>> fd13a70 (Update entire project: Latest changes across multiple components)
             </div>
           </div>
         </div>
       </div>  
       
-      {/* Highlighted Important Points */}
+      {/* Important Notes */}
       <div className="mt-6 mb-4">
         <div className="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-500 shadow-sm">
           <h4 className="text-lg font-bold text-yellow-700 mb-2">Important!</h4>
@@ -65,6 +59,7 @@ const ManualPayment = ({ orderId, amount }) => {
         </div>
       </div>
       
+      {/* Order ID Note */}
       <div className="mt-4 p-4 bg-gray-50 rounded-lg border border-gray-200 text-xs text-gray-500">
         <p>Include your Order ID ({orderId || "your order ID"}) as a reference when making the payment</p>
         <p className="mt-1">For any questions, contact us at hiraelectronics38@gmail.com</p>
