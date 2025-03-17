@@ -32,14 +32,17 @@ const ManualPayment = ({ orderId, amount }) => {
             <div className="flex justify-between border-b pb-2">
               <span className="text-gray-500">Account Number:</span>
               <span className="font-medium">0189-0105709390</span>
+<<<<<<< HEAD
             </div>
             <div className="flex justify-between pb-2">
               <span className="text-gray-500">IBAN:</span>
               <span className="font-medium">PK00MEZN0012345678901234</span>
+=======
+>>>>>>> fd13a70 (Update entire project: Latest changes across multiple components)
             </div>
           </div>
         </div>
-      </div>
+      </div>  
       
       {/* Highlighted Important Points */}
       <div className="mt-6 mb-4">

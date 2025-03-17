@@ -131,11 +131,21 @@ const Orders = ({ token }) => {
             key={index}
             className='grid grid-cols-1 sm:grid-cols-[0.5fr_2fr_1fr] lg:grid-cols-[0.5fr_2fr_1fr_1fr_1fr] items-center gap-3 border-2 border-gray-200 p-5 md:p-8 my-3 md:my-4 text-xs sm:text-sm text-gray-700'
           >
-            <img className='w-12' src={assets.parcel_icon} alt='' />
+            <div className="flex justify-center">
+              {order.items[0]?.image && order.items[0]?.image[0] ? (
+                <img 
+                  className='w-16 h-16 object-cover rounded border border-gray-300' 
+                  src={order.items[0].image[0]} 
+                  alt={order.items[0].name} 
+                />
+              ) : (
+                <img className='w-12' src={assets.parcel_icon} alt='Parcel' />
+              )}
+            </div>
             <div>
               <div>
                 {order.items.map((item, idx) => (
-                  <p className='py0.5' key={idx}>
+                  <p key={idx} className="py-1">
                     {item.name} x {item.quantity}
                   </p>
                 ))}

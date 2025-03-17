@@ -17,7 +17,7 @@ const BestSeller = () => {
             <div className='text-center py-8 text-3xl'>
                 <Title text1={'BEST'} text2={'SELLER'} />
                 <p className='w-3/4 m-auto text-xs sm:text-sm md:text-base text-gray-600'>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus quo, sapiente veritatis possimus quasi ipsum?
+                    Shop Hira Electronics' best-selling ACs, refrigerators, washing machines, and LED TVs—top quality, best prices, and unmatched performance guaranteed!
                 </p>
             </div>
             {/* Rendering Products */}

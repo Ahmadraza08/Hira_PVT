@@ -97,15 +97,11 @@ const PlaceOrder = () => {
             <div className="space-y-2 text-sm">
               <div className="flex justify-between">
                 <span className="text-gray-500">Account Title:</span>
-                <span className="font-medium">Hira Electronics</span>
+                <span className="font-medium">SUNNY ELECTRONICS</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-500">Account Number:</span>
-                <span className="font-medium">12345678901234</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-500">IBAN:</span>
-                <span className="font-medium">PK00MEZN0012345678901234</span>
+                <span className="font-medium">0189-0105709390</span>
               </div>
             </div>
           </div>
@@ -281,7 +277,7 @@ const PlaceOrder = () => {
                   checked={paymentMethod === 'manual'}
                   onChange={handlePaymentMethodChange}
                 />
-                <label htmlFor="manual">Manual Payment</label>
+                <label htmlFor="manual">Online Payment</label>
               </div>
             </div>
           </div>
